@@ -1,0 +1,22 @@
+[
+    {
+        "key": "service_talk/db/user",
+        "value": "cG9zdGdyZXM="
+    },
+    {
+        "key": "service_talk/db/password",
+        "value": "cG9zdGdyZXM="
+    },
+    {
+        "key": "service_talk/db/host",
+        "value": "bG9jYWxob3N0"
+    },
+    {
+        "key": "service_talk/db/port",
+        "value": "NTQzMg=="
+    },
+    {
+        "key": "service_talk/db/database",
+        "value": "c2VydmljZV90YWxr"
+    }
+]
