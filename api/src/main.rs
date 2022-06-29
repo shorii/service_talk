@@ -9,6 +9,8 @@ use state::AppState;
 use std::convert::TryInto;
 
 mod controller;
+mod domain;
+mod infra;
 mod state;
 
 #[derive(Clone)]
