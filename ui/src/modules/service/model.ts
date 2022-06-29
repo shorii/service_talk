@@ -1,23 +1,15 @@
-export interface SignInRequest {
-    username: string;
-    password: string;
+export interface Room {
+    id: string;
+    name: string;
+    description: string;
 }
 
-export const createSignInRequest = (username: string, password: string): SignInRequest => {
-    return {
-        username,
-        password,
-    };
-};
-
-export interface SignUpRequest {
-    username: string;
-    password: string;
+export interface RoomCreateRequest {
+    name: string;
+    description: string;
 }
 
-export const createSignUpRequest = (username: string, password: string): SignUpRequest => {
-    return {
-        username,
-        password,
-    };
-};
+export interface RoomUpdateRequest {
+    name: string;
+    description: string;
+}

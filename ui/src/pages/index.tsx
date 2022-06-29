@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
-import { SignInPage, Layout } from '@/modules';
+import { HomePage, Layout } from '@/modules';
 
-const SignIn: NextPage = () => {
+const Home: NextPage = () => {
     return (
-        <Layout title={'Sign in'}>
-            <SignInPage />
+        <Layout title={'Home'}>
+            <HomePage />
         </Layout>
     );
 };
 
-export default SignIn;
+export default Home;

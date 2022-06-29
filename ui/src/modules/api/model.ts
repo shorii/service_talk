@@ -1,17 +1,15 @@
-export interface LoginRequest {
-    username: string;
-    password: string;
+export interface Room {
+    id: string;
+    name: string;
+    description: string;
 }
 
-export interface RegisterRequest {
-    username: string;
-    password: string;
+export interface RoomCreateRequest {
+    name: string;
+    description: string;
 }
 
-export interface LoginResponse {
-    location: string;
-}
-
-export interface RegisterResponse {
-    location: string;
+export interface RoomUpdateRequest {
+    name: string;
+    description: string;
 }
