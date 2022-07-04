@@ -10,10 +10,37 @@ import {
     RoomUpdateRequest as model_RoomUpdateRequest,
 } from './model';
 
-export const useRooms = () => {
-    const key = 'Room';
+const keys = {
+    room: (roomId: string) => `Room(${roomId})`,
+    rooms: () => 'Rooms',
+};
+
+export const useRoom = (roomId: string) => {
     const { mutate } = useSWRConfig();
-    const { data, error } = useSWR(key, apiClient.get_rooms);
+    const { data, error } = useSWR(keys.room(roomId), (_) => apiClient.get_room(roomId));
+
+    const $update = React.useCallback(
+        async (request: model_RoomUpdateRequest) => {
+            const payload: api_RoomUpdateRequest = {
+                ...request,
+            };
+            const updatedRoom = await apiClient.update_room(roomId, payload);
+            mutate(keys.room(roomId), updatedRoom);
+            mutate(keys.rooms());
+        },
+        [mutate, data, roomId],
+    );
+    return {
+        room: data,
+        isLoading: error || !data,
+        isError: error,
+        $update,
+    };
+};
+
+export const useRooms = () => {
+    const { mutate } = useSWRConfig();
+    const { data, error } = useSWR(keys.rooms(), (_) => apiClient.get_rooms());
 
     const $create = React.useCallback(
         async (request: model_RoomCreateRequest) => {
@@ -21,19 +48,7 @@ export const useRooms = () => {
                 ...request,
             };
             const newRoom = await apiClient.create_room(payload);
-            mutate(key, [newRoom, ...(data ?? [])]);
-        },
-        [mutate, data],
-    );
-
-    const $update = React.useCallback(
-        async (roomId: string, request: model_RoomUpdateRequest) => {
-            const payload: api_RoomUpdateRequest = {
-                ...request,
-            };
-            const updatedRoom = await apiClient.update_room(roomId, payload);
-            const index = data?.findIndex((x) => x.id == roomId);
-            mutate(key, [...(data?.splice(index!, 1, updatedRoom) ?? [])]);
+            mutate(keys.rooms(), [newRoom, ...(data ?? [])]);
         },
         [mutate, data],
     );
@@ -41,17 +56,17 @@ export const useRooms = () => {
     const $delete = React.useCallback(
         async (roomId: string) => {
             await apiClient.delete_room(roomId);
-            mutate(key, [...(data?.filter((x) => x.id != roomId) ?? [])]);
+            mutate(keys.rooms(), [...(data?.filter((x) => x.id != roomId) ?? [])]);
+            mutate(keys.room(roomId));
         },
         [mutate, data],
     );
 
     return {
         rooms: data,
-        isLoading: !error && !data,
+        isLoading: error || !data,
         isError: error,
         $create,
-        $update,
         $delete,
     };
 };
