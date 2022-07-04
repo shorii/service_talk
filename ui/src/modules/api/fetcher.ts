@@ -15,6 +15,11 @@ class APIClient {
         });
     }
 
+    async get_room(roomId: string): Promise<Room> {
+        const resp = await this._fetch(`/talk/room/${roomId}`, 'GET');
+        return resp.json();
+    }
+
     async get_rooms(): Promise<Room[]> {
         const resp = await this._fetch('/talk/room', 'GET');
         return resp.json();
@@ -26,7 +31,7 @@ class APIClient {
     }
 
     async update_room(roomId: string, payload: RoomUpdateRequest): Promise<Room> {
-        const resp = await this._fetch(`/talk/room/${roomId}`, 'POST', payload);
+        const resp = await this._fetch(`/talk/room/${roomId}`, 'PATCH', payload);
         return resp.json();
     }
 
