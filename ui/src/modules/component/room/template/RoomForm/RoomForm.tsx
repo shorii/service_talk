@@ -29,6 +29,7 @@ export const RoomForm: React.FC<RoomFormProps> = (props) => {
                                     value={value}
                                     label={'name'}
                                     variant="standard"
+                                    data-cy="RoomForm-name"
                                 />
                             );
                         }}
@@ -46,6 +47,7 @@ export const RoomForm: React.FC<RoomFormProps> = (props) => {
                                     value={value}
                                     label={'description'}
                                     variant="standard"
+                                    data-cy="RoomForm-description"
                                 />
                             );
                         }}

@@ -24,14 +24,14 @@ export const Form = (props: React.PropsWithChildren<FormProps>) => {
                 >
                     {onSubmit && (
                         <Grid item>
-                            <Button type="submit" variant="outlined">
+                            <Button type="submit" variant="outlined" data-cy="Form-submit">
                                 submit
                             </Button>
                         </Grid>
                     )}
                     {onCancel && (
                         <Grid item>
-                            <Button onClick={onCancel} variant="outlined">
+                            <Button onClick={onCancel} variant="outlined" data-cy="Form-cancel">
                                 cancel
                             </Button>
                         </Grid>

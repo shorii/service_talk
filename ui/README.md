@@ -16,6 +16,13 @@ $ cd /path/to/service_talk/api
 $ cargo run -- --bind 0.0.0.0:8080
 ```
 
+UIサーバ起動
+
+```sh
+$ cd /path/to/service_talk/ui
+$ yarn dev
+```
+
 ホストでXLaunchを起動。
 disable access controlを有効にする。
 

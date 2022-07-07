@@ -53,9 +53,12 @@ export const HomeContainer: React.FC<HomeContainerProps> = (props) => {
     }, [router, roomId]);
 
     const handleDelete = React.useCallback(() => {
-        // TODO implement
-        console.log(roomId);
-    }, [roomId]);
+        if (!roomId) {
+            return;
+        }
+        $delete(roomId);
+        setRoomId(null);
+    }, [$delete, roomId, setRoomId]);
 
     const handleClick = React.useCallback(
         (roomId: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -107,6 +110,7 @@ export const HomeContainer: React.FC<HomeContainerProps> = (props) => {
                                 startIcon={<CreateOutlinedIcon />}
                                 variant="outlined"
                                 onClick={handleCreate}
+                                data-cy="HomeContainer-create"
                             >
                                 Create
                             </Button>
@@ -129,7 +133,10 @@ export const HomeContainer: React.FC<HomeContainerProps> = (props) => {
                                         <TableCell>{x.name}</TableCell>
                                         <TableCell>{x.description}</TableCell>
                                         <TableCell style={{ width: 32 }}>
-                                            <IconButton onClick={handleClick(x.id)}>
+                                            <IconButton
+                                                onClick={handleClick(x.id)}
+                                                data-cy={`HomeContainer-menu-${idx}`}
+                                            >
                                                 <MoreHorizIcon />
                                             </IconButton>
                                         </TableCell>
@@ -143,12 +150,20 @@ export const HomeContainer: React.FC<HomeContainerProps> = (props) => {
             <Popover open={open} anchorEl={anchorEl} onClose={handleClose}>
                 <Grid container direction="column">
                     <Grid item>
-                        <Button onClick={handleEdit} style={{ width: '100%' }}>
+                        <Button
+                            onClick={handleEdit}
+                            style={{ width: '100%' }}
+                            data-cy="HomeContainer-edit"
+                        >
                             Edit
                         </Button>
                     </Grid>
                     <Grid item>
-                        <Button onClick={handleDelete} style={{ width: '100%' }}>
+                        <Button
+                            onClick={handleDelete}
+                            style={{ width: '100%' }}
+                            data-cy="HomeContainer-delete"
+                        >
                             Delete
                         </Button>
                     </Grid>
